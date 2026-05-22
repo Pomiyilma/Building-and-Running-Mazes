@@ -4,7 +4,7 @@ This project is a Python-based application that generates and solves a maze visu
 
 # How It Works
 
-#1. Maze Generation
+1. Maze Generation
 The maze is generated using the Depth-First Search (DFS) algorithm.
 
 - The algorithm visits random neighboring cells
@@ -49,7 +49,7 @@ Install dependencies:
 pip install PyOpenGL PyOpenGL_accelerate
 ```
 
-#Run the Program
+Run the Program
 
 ```bash
 python Running-Maze.py
