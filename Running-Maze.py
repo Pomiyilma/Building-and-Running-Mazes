@@ -141,6 +141,57 @@ def generate_step():
                 else:
                     eastWall[r_rand][c_rand] = 0
         solving = True
+# --- SOLVER MOVEMENT AND COLLISION LOGIC ---
+
+
+def can_move(r, c, d):
+    if d == 0:
+        return r < R - 1 and northWall[r][c] == 0
+    elif d == 1:
+        return c < C - 1 and eastWall[r][c] == 0
+    elif d == 2:
+        return r > 0 and northWall[r - 1][c] == 0
+    elif d == 3:
+        return c > 0 and eastWall[r][c - 1] == 0
+    return False
+
+
+def move_forward(r, c, d):
+    if d == 0:
+        return (r + 1, c)
+    elif d == 1:
+        return (r, c + 1)
+    elif d == 2:
+        return (r - 1, c)
+    elif d == 3:
+        return (r, c - 1)
+
+# --- BACKTRACKING SOLVER ALGORITHM ---
+# Phase 3: Backtracking Solver with Wall-Follower Logic
+
+
+def solve_step():
+    global mouse_position, direction, solving
+    r, c = mouse_position
+    path.append((r, c))
+    visited_solver.add((r, c))
+    if (r, c) == (0, C - 1):
+        print("Maze solved!")
+        solving = False
+        return
+
+    priorities = [(direction + 1) % 4, direction,
+                  (direction - 1) % 4, (direction + 2) % 4]
+    moved = False
+    for nd in priorities:
+        if can_move(r, c, nd):
+            direction = nd
+            nr, nc = move_forward(r, c, nd)
+            mouse_position = (nr, nc)
+            moved = True
+            break
+    if not moved:
+        dead_ends.add((r, c))
 
 
 # --- MAIN DISPLAY AND UPDATE LOOP ---
