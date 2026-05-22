@@ -38,6 +38,42 @@ def init():
     glLoadIdentity()
     gluOrtho2D(0, WINDOW_WIDTH, 0, WINDOW_HEIGHT)
 
+# --- MAZE RENDERING LOGIC ---
+def draw_maze():          
+    glColor3f(1, 1, 1)
+    glLineWidth(2)
+    glBegin(GL_LINES)
+    for r in range(R):
+        for c in range(C):
+            y = (R - r - 1) * CELL_SIZE
+            if northWall[r][c]:
+                glVertex2f(c * CELL_SIZE, y + CELL_SIZE)
+                glVertex2f((c + 1) * CELL_SIZE, y + CELL_SIZE)
+            if eastWall[r][c]:
+                glVertex2f((c + 1) * CELL_SIZE, y)
+                glVertex2f((c + 1) * CELL_SIZE, y + CELL_SIZE)
+    for r in range(R):
+        y = (R - r - 1) * CELL_SIZE
+        if eastWall[r][C]:
+            glVertex2f(0, y)
+            glVertex2f(0, y + CELL_SIZE)
+    for c in range(C):
+        if northWall[R][c]:
+            glVertex2f(c * CELL_SIZE, 0)
+            glVertex2f((c + 1) * CELL_SIZE, 0)
+    glEnd()
+
+
+
+# --- MAIN DISPLAY AND UPDATE LOOP ---
+def display():                    
+    glClear(GL_COLOR_BUFFER_BIT)
+    draw_maze()
+    draw_entities()
+    glutSwapBuffers() 
+
+
+
 def main():
     glutInit(sys.argv)
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB)
