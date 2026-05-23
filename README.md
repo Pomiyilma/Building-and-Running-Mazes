@@ -20,6 +20,8 @@ After generation, the maze is solved automatically using wall-following and back
 - Green Dot → Current mouse position
 - Red Path → Explored route
 - Blue Dots → Dead ends
+  
+The solver continues until it reaches the maze exit.
 
 # Data Structures
 
@@ -33,7 +35,7 @@ Values:
 - `0` → Wall removed
 
 # Features
-
+- Dynamic maze generation
 - DFS-based maze generation
 - Automatic maze solving
 - Real-time OpenGL visualization
